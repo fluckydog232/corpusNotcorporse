@@ -1,41 +1,14 @@
-Type Markdown and LaTeX:  α2α2
-
-
-
-
-
+# import common library
 import pandas as pd
 import numpy as np
 from collections import Counter
 import re
-# imports visualization tools
-from IPython.display import display
-import seaborn as sns
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-import base64
-import io
-%matplotlib inline
-sns.set()
-​
-import pandas as pd
-import numpy as np
-from collections import Counter
-import re
-​
+
 # for stemming and tokenization
 import nltk
 from gensim.corpora import Dictionary
 # for one hot encoder imports
 from sklearn.preprocessing import LabelEncoder
-​
-# imprted models
-from gensim.models.ldamulticore import LdaMulticore
-from gensim.models.word2vec import Word2Vec
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV
-​
 # imports visualization tools
 from IPython.display import display
 import seaborn as sns
@@ -52,33 +25,22 @@ train_data = pd.read_csv('../input/train.csv')
 ​print(train_data.shape)
 train_data.head(3)
 
-
-
-
-
 # 1)Exploratory Data Analysis
-
-
 
 # inspect for null values
 train_data.isnull().sum()
 
-
-# Inspect author variable
-
-
-
-# inspect label values
+# Inspect author variable and inspect label values
 train_data.author.value_counts().index
 
 fig, ax = plt.subplots(1,1,figsize=(8,6))
-​
+
 author_vc = train_data.author.value_counts()
-​
+
 ax.bar(range(3), author_vc)
 ax.set_xticks(range(3))
 ax.set_xticklabels(author_vc.index, fontsize=16)
-​
+
 for rect, c, value in zip(ax.patches, ['b', 'r', 'g'], author_vc.values):
     rect.set_color(c)
     height = rect.get_height()
@@ -89,7 +51,7 @@ for rect, c, value in zip(ax.patches, ['b', 'r', 'g'], author_vc.values):
 
 # Inspect text variable
 document_lengths = np.array(list(map(len, train_data.text.str.split(' '))))
-​
+
 print("The average number of words in a document is: {}.".format(np.mean(document_lengths)))
 print("The minimum number of words in a document is: {}.".format(min(document_lengths)))
 print("The maximum number of words in a document is: {}.".format(max(document_lengths)))
